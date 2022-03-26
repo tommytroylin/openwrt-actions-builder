@@ -93,11 +93,12 @@ jobs:
         working-directory: ./openwrt
         run: |
           echo -e "$(nproc) thread build."
-          make -j$(nproc) V=s 1>info.log 2>error.log
-          echo "================   Build Error   ================"
-          cat error.log
-          echo "================= Last 100 Info ================="
-          cat info.log
+          make -j$(nproc) V=s 1>info.log 2>error.log || \
+          echo "================   Build Error   ================" && \
+          cat error.log | tail -n 200 && \
+          echo "================= Last 100 Info =================" && \
+          cat info.log | tail -n 400
+          echo "================= Build Finished ================="
 
       - name: Upload Artifact
         uses: actions/upload-artifact@master
