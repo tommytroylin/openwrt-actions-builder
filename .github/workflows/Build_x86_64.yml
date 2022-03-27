@@ -96,9 +96,10 @@ jobs:
           make -j$(nproc) V=s 1>info.log 2>error.log || \
           echo "================   Build Error   ================" && \
           cat error.log | tail -n 200 && \
-          echo "================= Last 100 Info =================" && \
-          cat info.log | tail -n 400
-          echo "================= Build Finished ================="
+          echo "================= Last 400 Info =================" && \
+          cat info.log | tail -n 400 && \
+          exit 1
+          echo "================= Build Finished =================" 
 
       - name: Upload Artifact
         uses: actions/upload-artifact@master
