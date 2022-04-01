@@ -23,36 +23,15 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          set +e
           docker rmi `docker images -q` > /dev/null
-          sudo -E apt-get -y purge \
-            azure-cli \
-            ghc* \
-            zulu* \
-            hhvm \
-            llvm* \
-            firefox \
-            google* \
-            dotnet* \
-            powershell \
-            openjdk* \
-            mysql* \
-            php* \
-            > /dev/null
+          sudo -E apt-get -y purge zure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* moby* snapd* > /dev/null
           echo "======== Packages Cleanup Finished ========"
-          sudo rm -rf \
-            /usr/share/dotnet \
-            /etc/mysql \
-            /etc/php \
-            /usr/local/lib/android \
-            /opt/ghc \
-            > /dev/null
+          sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /usr/local/lib/android /opt/ghc > /dev/null
           echo "======== Release Disk Space Finished ========"
           sudo -E apt-get update > /dev/null
           sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc-s1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync > /dev/null
           sudo -E apt-get -y autoremove --purge > /dev/null
           sudo -E apt-get clean > /dev/null
-          sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
           echo "======== Install Build Tools Finished ========"
           df -h
 
