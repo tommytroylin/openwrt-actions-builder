@@ -24,7 +24,7 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           docker rmi `docker images -q` > /dev/null
-          sudo -E apt-get -y purge zure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* moby* snapd* > /dev/null
+          sudo -E apt-get -y purge ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* moby* snapd* > /dev/null
           echo "======== Packages Cleanup Finished ========"
           sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /usr/local/lib/android /opt/ghc > /dev/null
           echo "======== Release Disk Space Finished ========"
