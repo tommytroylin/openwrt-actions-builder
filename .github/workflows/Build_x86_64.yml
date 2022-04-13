@@ -71,10 +71,10 @@ jobs:
         working-directory: ./openwrt
         run: |
           echo -e "$(nproc) thread build."
-          make -j$(nproc) V=s &>info.log || \
+          make -j$(nproc) V=s &>info.log || { \
           echo "======== Last 200 Build Log ========" && \
           cat info.log | tail -n 200 && \
-          exit 1
+          exit 1 }
 
       - name: Upload Artifact
         uses: actions/upload-artifact@master
