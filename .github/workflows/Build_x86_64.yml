@@ -90,7 +90,7 @@ jobs:
           name: openWrt_buildinfo
           path: openwrt/artifact/buildinfo/
 
-      - name: Upload firmware
+      - name: Upload Firmware
         uses: actions/upload-artifact@master
         with:
           name: openWrt_firmware
