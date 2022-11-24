@@ -1,13 +1,6 @@
-name: Lean_x86_64
+name: prepare_config
 
 on:
-  schedule:
-    - cron: "0 0 * * 5"
-
-  push:
-    branches:
-      - master
-
   watch:
     types: [started]
 
@@ -56,44 +49,8 @@ jobs:
           ./scripts/feeds update -a > /dev/null
           ./scripts/feeds install -a > /dev/null
 
-      - name: Configuration Customization
-        env:
-          CUSTOMIZE_FILE: "./customize.sh"
-        run: |
-          chmod +x ./customize.sh && ./customize.sh
-
-      - name: Configuration Apply
-        env:
-          CONFIG_FILE: "./lean/x86_64.config"
-        run: |
-          [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-          cd openwrt make defconfig > /dev/null
-
-      - name: Download Packages
-        working-directory: ./openwrt
-        run: |
-          make download -j$(nproc) > /dev/null
-          find dl -size -1024c -exec ls -l {} \; > /dev/null
-          find dl -size -1024c -exec rm -f {} \; > /dev/null
-
-      - name: Build Firmware
-        working-directory: ./openwrt
-        run: |
-          echo -e "$(nproc) thread build."
-          make -j$(nproc) V=s 
-          # &>info.log || { echo "======== Last 200 Lines Of Build Log ========"; cat info.log | tail -n 200; exit 1; }
-
-      - name: Prepare Firmware
-        working-directory: ./openwrt
-        run: |
-          mkdir -p ./artifact/firmware
-          cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
-
-      - name: Upload Firmware
-        uses: actions/upload-artifact@master
-        with:
-          name: openWrt_firmware
-          path: openwrt/artifact/firmware/
+      - name: Start SSH via tmate
+        uses: P3TERX/ssh2actions@main
 
       - name: Delete Workflow Runs
         uses: GitRML/delete-workflow-runs@main
