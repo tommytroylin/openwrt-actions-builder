@@ -60,6 +60,7 @@ jobs:
           ./scripts/feeds install -a > /dev/null
 
       - name: Configuration Customization
+        working-directory: ./openwrt
         env:
           CUSTOMIZE_FILE: "./customize.sh"
         run: |
