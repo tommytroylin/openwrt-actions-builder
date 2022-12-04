@@ -61,10 +61,10 @@ jobs:
 
       - name: Configuration Customization
         working-directory: ./openwrt
-        env:
-          CUSTOMIZE_FILE: "./customize.sh"
         run: |
-          chmod +x ./customize.sh && ./customize.sh
+          mv ../customize.sh ./customize.sh
+          chmod +x ./customize.sh 
+          ./customize.sh
 
       - name: Configuration Apply
         env:
