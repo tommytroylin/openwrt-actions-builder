@@ -43,6 +43,7 @@ jobs:
         run: |
           [ -e $CONFIG_FILE ] 
           cp $CONFIG_FILE openwrt/.config
+          cd openwrt
           make defconfig
 
       - name: Start SSH via tmate
