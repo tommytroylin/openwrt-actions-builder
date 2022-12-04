@@ -25,6 +25,7 @@ jobs:
         uses: actions/checkout@main
         with:
           repository: coolsnowwolf/lede
+          ref: '20221001'
           path: openwrt
 
       - name: Update & Install Feeds

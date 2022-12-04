@@ -48,6 +48,7 @@ jobs:
         uses: actions/checkout@main
         with:
           repository: coolsnowwolf/lede
+          ref: "20221001"
           path: openwrt
 
       - name: Update & Install Feeds
@@ -85,7 +86,7 @@ jobs:
         working-directory: ./openwrt
         run: |
           echo -e "$(nproc) thread build."
-          make -j$(nproc) V=s 
+          make -j$(nproc) V=s
           # &>info.log || { echo "======== Last 200 Lines Of Build Log ========"; cat info.log | tail -n 200; exit 1; }
 
       - name: Prepare Firmware
